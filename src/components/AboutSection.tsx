@@ -17,21 +17,21 @@ const AboutSection = () => (
           stunning Instagram Reels without breaking the bank. Creativity shouldn't cost a fortune.
         </p>
       </motion.div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar scroll-smooth">
         {highlights.map((h, i) => (
           <motion.div
             key={h.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="rounded-2xl bg-card border border-border p-8 text-center hover:shadow-lg transition-shadow"
+            className="flex-shrink-0 w-[280px] md:w-[320px] snap-center rounded-2xl bg-card border border-border p-8 text-center hover:shadow-lg transition-all duration-300"
           >
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary mb-4">
               <h.icon size={28} />
             </div>
             <h3 className="font-display font-semibold text-lg text-foreground mb-2">{h.title}</h3>
-            <p className="text-muted-foreground text-sm">{h.desc}</p>
+            <p className="text-muted-foreground text-sm leading-relaxed">{h.desc}</p>
           </motion.div>
         ))}
       </div>
