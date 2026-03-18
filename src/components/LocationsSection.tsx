@@ -41,8 +41,9 @@ const locations: Location[] = [
     ],
   },
   {
-    city: "Vijayawada",
-    image: vijayawadaImg,
+
+    city: "Hyderabad",
+    image: hyderabadImg,
     team: [
       {
         name: "Naresh Madharam",
@@ -53,13 +54,13 @@ const locations: Location[] = [
     ],
   },
   {
-    city: "Hyderabad",
-    image: hyderabadImg,
+    city: "Vijayawada",
+    image: vijayawadaImg,
     team: [
       {
         name: "Shyam",
-        role: "Content Strategist",
-        phone: "91939296312",
+        role: "Lead Creator",
+        phone: "919392796312",
         image: shyamImg,
       },
     ],
@@ -151,7 +152,7 @@ const LocationsSection = () => {
                           />
                           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-background rounded-full" />
                         </div>
-                        
+
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-bold text-foreground truncate">
                             {m.name}
