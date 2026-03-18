@@ -84,7 +84,7 @@ const PortfolioSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {reels.map((r, i) => (
             <motion.div
-              key={r.title}
+              key={`${r.title}-${i}`}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.08 }}
