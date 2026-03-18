@@ -25,9 +25,9 @@ const Index = () => (
   <div className="min-h-screen bg-background text-foreground scroll-smooth">
     <Navbar />
     <HeroSection />
-    
+
     <Suspense fallback={<SectionLoader />}>
-      <AboutSection />
+      {/* <AboutSection /> */}
       <FounderSection />
       <LocationsSection />
       <PortfolioSection />
