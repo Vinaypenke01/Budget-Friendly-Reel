@@ -10,24 +10,32 @@ const highlights = [
 
 const AboutSection = () => {
   const [index, setIndex] = useState(0);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // 🔄 Auto-slide Logic
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % highlights.length);
-    }, 4500);
+    }, 2800); // Slightly adjusted for better rhythm
 
     return () => clearInterval(interval);
   }, []);
 
-  // 🎯 Smooth Scroll Behavior
+  // 🎯 Smooth Scroll Container Only (Fixes Page Jump)
   useEffect(() => {
-    cardRefs.current[index]?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
+    if (containerRef.current) {
+      const card = containerRef.current.children[index] as HTMLElement;
+      if (card) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const cardWidth = card.offsetWidth;
+        const scrollLeft = card.offsetLeft - (containerWidth / 2) + (cardWidth / 2);
+        
+        containerRef.current.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
+        });
+      }
+    }
   }, [index]);
 
   return (
@@ -41,25 +49,25 @@ const AboutSection = () => {
           </p>
         </motion.div>
 
-        {/* 🎠 Carousel Wrapper */}
+        {/* Carousel Wrapper */}
         <div className="relative group">
-          <div className="flex overflow-x-auto gap-4 md:gap-8 pb-12 snap-x snap-mandatory no-scrollbar">
+          <div 
+            ref={containerRef}
+            className="flex overflow-x-auto gap-4 md:gap-8 pb-12 snap-x snap-mandatory no-scrollbar"
+          >
             {highlights.map((h, i) => (
-              <div 
+              <div
                 key={h.title}
-                ref={(el) => (cardRefs.current[i] = el)}
                 className="flex-shrink-0 w-[280px] sm:w-[350px] md:w-[400px] snap-center"
               >
-                <div 
-                  className={`h-full rounded-2xl bg-card border p-10 text-center transition-all duration-500 ${
-                    index === i 
-                      ? "border-primary/50 shadow-2xl shadow-primary/10 scale-100 opacity-100" 
-                      : "border-border opacity-40 scale-90 blur-[1px]"
-                  }`}
+                <div
+                  className={`h-full rounded-2xl bg-card border p-10 text-center transition-all duration-500 ${index === i
+                    ? "border-primary/50 shadow-2xl shadow-primary/10 scale-100 opacity-100"
+                    : "border-border opacity-40 scale-90 blur-[1px]"
+                    }`}
                 >
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-colors duration-500 ${
-                    index === i ? "bg-primary text-white" : "bg-primary/10 text-primary"
-                  }`}>
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-colors duration-500 ${index === i ? "bg-primary text-white" : "bg-primary/10 text-primary"
+                    }`}>
                     <h.icon size={32} />
                   </div>
                   <h3 className="font-display font-bold text-xl text-foreground mb-4">{h.title}</h3>
@@ -76,9 +84,8 @@ const AboutSection = () => {
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === i ? "bg-primary w-10" : "bg-primary/20 w-3 hover:bg-primary/40"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${index === i ? "bg-primary w-10" : "bg-primary/20 w-3 hover:bg-primary/40"
+                }`}
             />
           ))}
         </div>
